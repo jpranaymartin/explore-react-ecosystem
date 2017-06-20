@@ -1,0 +1,34 @@
+{
+  "name": "explore-react-ecosystem",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "Exploration of the React ecosystem.",
+  "repository": "https://github.com/jpranaymartin/explore-react-ecosystem",
+  "license": "MIT",
+  "author": "Joseph Pranay Martin",
+  "scripts": {
+    "start": "node server.js",
+    "compile": "webpack -d --watch"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "babel-cli": "6.6.5",
+    "babel-core": "6.24.1",
+    "babel-loader": "7.0.0",
+    "babel-plugin-react": "1.0.0",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-react": "6.5.0",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "express": "^4.15.3",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "5.0.5",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "redux": "3.6.0",
+    "redux-thunk": "^2.2.0",
+    "webpack": "2.6.1"
+  }
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tasks - Step 0</title>
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+    <h1>To-Do:</h1>
+    <div id="app"></div>
+
+    <script type="text/babel">
+
+      /**
+       * TaskApp Component
+       * ===
+       * Container for application state.
+       * Renders TaskForm and TaskList.
+       */
+      class TaskApp extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            tasks: [
+              'Talk about React at Dev Week',
+              'Learn me s\'more JavaScript'
+            ]
+          };
+          this.addTask = this.addTask.bind(this);
+          this.removeTask = this.removeTask.bind(this);
+        }
+        addTask(description) {
+          const newTasks = this.state.tasks.slice();
+          newTasks.push(description);
+          this.setState({
+            tasks: newTasks
+          });
+        }
+        removeTask(index){
+          const newTasks = this.state.tasks.slice();
+          newTasks.splice(index, 1);
+          this.setState({
+            tasks: newTasks
+          });
+        }
+        render() {
+          return (
+            <div>
+              <TaskForm addTask={this.addTask}/>
+              <TaskList removeTask={this.removeTask} tasks={this.state.tasks}/>
+            </div>
+          );
+        }
+      }
+
+      /**
+       * TaskList Component
+       * ===
+       * Maps tasks into Task Component instances.
+       */
+      const TaskList = ({tasks, removeTask}) => (
+        <ul>
+          {tasks.map((task, index) => (
+            <Task
+              key={index}
+              index={index}
+              task={task}
+              removeTask={removeTask}
+            />
+          ))}
+        </ul>
+      )
+
+      /**
+       * Task Component
+       * ===
+       * Renders task information.
+       * Triggers removeTask functionality if clicked.
+       */
+      const Task = ({task, removeTask, index}) => (
+        <li onClick={() => removeTask(index)}>{task}</li>
+      )
+
+      /**
+       * TaskForm Component
+       * ===
+       * Maintains form state with controlled input.
+       * Triggers addTask functionality if submitted.
+       */
+      class TaskForm extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            description: ''
+          };
+        }
+        handleChange(evt) {
+          this.setState({
+            description: evt.target.value
+          });
+        }
+        handleSubmit(evt) {
+          evt.preventDefault();
+          evt.stopPropagation();
+          this.props.addTask(this.state.description);
+          this.setState({
+            description: ''
+          });
+        }
+        render() {
+          return (
+            <form onSubmit={this.handleSubmit.bind(this)}>
+              <input
+                type="text"
+                value={this.state.description}
+                onChange={this.handleChange.bind(this)}
+              />
+              <button type="submit">Add Task</button>
+            </form>
+          );
+        }
+      }
+
+      /**
+       * Render App
+       * ===
+       * Target the DOM engine.
+       * React's power is in creating components.
+       * Components can be rendered on multiple .
+       */
+      ReactDOM.render(<TaskApp/>, document.getElementById('app'));
+
+    </script>
+  </body>
+</html>
